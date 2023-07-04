@@ -1,2 +1,2 @@
-# qc_trading
-Quantconnect Algortihmic Trading Strategies
+# QC_trading
+Quantconnect Algortihmic Trading Strategies Collection
