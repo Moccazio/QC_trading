@@ -156,8 +156,8 @@ class EqualWeightBenchmark(QCAlgorithm):
 
         self.INIT_PORTFOLIO_CASH = 1000000
 
-        self.SetStartDate(2008, 10, 1)  # Set Start Date
-        self.SetEndDate(2023, 7, 1)  # Set End Date
+        self.SetStartDate(2008, 5, 1)  # Set Start Date
+        self.SetEndDate(2023, 7, 14)  # Set End Date
 
         self.SetCash(self.INIT_PORTFOLIO_CASH)  # Set Strategy Cash
 
