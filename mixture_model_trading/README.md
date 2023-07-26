@@ -6,7 +6,7 @@ The symbol universe consisted of the following ETFs:
 
 _"SPY", "QQQ", "DIA", "TLT", "GLD", "EFA", "EEM", 'BND', 'VNQ'_
 
-- All the algorithms start from `2008-05-01` and run until `2023-07-01`.
+- All the algorithms start from `2008-05-01` and run until `2023-07-25`.
 - Rebalance daily.
 - Target weights had a 5% corridor or +/- 2.5% (to minimize transaction costs). 
 - Lookback is either 252 days or 60 days. 
