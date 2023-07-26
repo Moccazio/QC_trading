@@ -140,8 +140,8 @@ class Benchmark6040(QCAlgorithm):
         self.INIT_PORTFOLIO_CASH = 1000000
 
         self.SetStartDate(2008, 5, 1)  # Set Start Date
-        self.SetEndDate(2023, 7, 14)  # Set End Date
-
+        self.SetEndDate(2023, 7, 25)  # Set End Date
+        
         self.SetCash(self.INIT_PORTFOLIO_CASH)  # Set Strategy Cash
 
         # -----------------------------------------------------------------------------
@@ -221,6 +221,7 @@ class Benchmark6040(QCAlgorithm):
 
         # make buy list
         self.Schedule.On(
+            #self.DateRules.MonthStart(self.BASE_SYMBOL),
             self.DateRules.EveryDay(self.BASE_SYMBOL),
             self.TimeRules.AfterMarketOpen(self.BASE_SYMBOL, 5),
             Action(self.init_prices),
