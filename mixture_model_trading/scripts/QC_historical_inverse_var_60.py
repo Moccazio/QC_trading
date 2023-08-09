@@ -147,9 +147,9 @@ class HistoricalInverseVAR(QCAlgorithm):
         """Initial algorithm settings"""
 
         self.INIT_PORTFOLIO_CASH = 1000000
-
-        self.SetStartDate(2008, 5, 1)  # Set Start Date
-        self.SetEndDate(2023, 7, 25)  # Set End Date
+        
+        self.SetStartDate(2008, 1, 1)  # Set Start Date
+        self.SetEndDate(2023, 7, 31)  # Set End Date
 
         self.SetCash(self.INIT_PORTFOLIO_CASH)  # Set Strategy Cash
 
@@ -238,16 +238,16 @@ class HistoricalInverseVAR(QCAlgorithm):
         # -----------------------------------------------------------------------------
 
         self.Schedule.On(
-            self.DateRules.EveryDay(self.BASE_SYMBOL),
-            #self.DateRules.MonthStart(self.BASE_SYMBOL),
+            #self.DateRules.EveryDay(self.BASE_SYMBOL),
+            self.DateRules.MonthStart(self.BASE_SYMBOL),
             self.TimeRules.AfterMarketOpen(self.BASE_SYMBOL, 5),
             Action(self.init_prices),
         )
 
         # make buy list
         self.Schedule.On(
-            self.DateRules.EveryDay(self.BASE_SYMBOL),
-            #self.DateRules.MonthStart(self.BASE_SYMBOL),
+            #self.DateRules.EveryDay(self.BASE_SYMBOL),
+            self.DateRules.MonthStart(self.BASE_SYMBOL),
             self.TimeRules.AfterMarketOpen(self.BASE_SYMBOL, 10),
             Action(self.rebalance),
         )
@@ -273,7 +273,7 @@ class HistoricalInverseVAR(QCAlgorithm):
         History call.
         """
         if not self.symbols:
-            self.Log("no symbols")
+            self.Debug("no symbols")
             return
 
         if self._init_prices:
@@ -346,7 +346,7 @@ class HistoricalInverseVAR(QCAlgorithm):
 
     def rebalance(self):
         """fn: run main algorithm"""
-        self.Log(
+        self.Debug(
             "\n"
             + "-" * 77
             + "\n[{}] Begin main algorithm computation...".format(self.UtcTime)
@@ -363,14 +363,14 @@ class HistoricalInverseVAR(QCAlgorithm):
             var = calc_historical_var(returns[sec].to_frame(), alpha=self.ALPHA)
             var_dict[sec] = var
 
-        self.Log("var dict: {}".format(var_dict))
+        self.Debug("var dict: {}".format(var_dict))
 
         # compute target weights
         var_ser = pd.DataFrame.from_dict(var_dict, orient="index").squeeze()
         invert = 1 / var_ser.abs()
         target_weights = invert / invert.sum()
 
-        self.Log("inverse var weights: {}".format(target_weights))
+        self.Debug("inverse var weights: {}".format(target_weights))
 
         for sec in self.symbols:
             # get current weights
