@@ -139,8 +139,8 @@ class Benchmark6040(QCAlgorithm):
 
         self.INIT_PORTFOLIO_CASH = 1000000
 
-        self.SetStartDate(2008, 5, 1)  # Set Start Date
-        self.SetEndDate(2023, 7, 25)  # Set End Date
+        self.SetStartDate(2008, 1, 1)  # Set Start Date
+        self.SetEndDate(2023, 7, 31)  # Set End Date
         
         self.SetCash(self.INIT_PORTFOLIO_CASH)  # Set Strategy Cash
 
@@ -221,16 +221,16 @@ class Benchmark6040(QCAlgorithm):
 
         # make buy list
         self.Schedule.On(
-            #self.DateRules.MonthStart(self.BASE_SYMBOL),
-            self.DateRules.EveryDay(self.BASE_SYMBOL),
+            self.DateRules.MonthStart(self.BASE_SYMBOL),
+            #self.DateRules.EveryDay(self.BASE_SYMBOL),
             self.TimeRules.AfterMarketOpen(self.BASE_SYMBOL, 5),
             Action(self.init_prices),
         )
 
         # make buy list
         self.Schedule.On(
-            #self.DateRules.MonthStart(self.BASE_SYMBOL),
-            self.DateRules.EveryDay(self.BASE_SYMBOL),
+            self.DateRules.MonthStart(self.BASE_SYMBOL),
+            #self.DateRules.EveryDay(self.BASE_SYMBOL),
             self.TimeRules.AfterMarketOpen(self.BASE_SYMBOL, 10),
             Action(self.rebalance),
         )
@@ -256,7 +256,7 @@ class Benchmark6040(QCAlgorithm):
         History call.
         """
         if not self.symbols:
-            self.Log("no symbols")
+            self.Debug("no symbols")
             return
 
         if self._init_prices:
@@ -329,7 +329,7 @@ class Benchmark6040(QCAlgorithm):
 
     def rebalance(self):
         """fn: run main algorithm"""
-        self.Log(
+        self.Debug(
             "\n"
             + "-" * 77
             + "\n[{}] Begin main algorithm computation...".format(self.UtcTime)
