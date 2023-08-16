@@ -362,7 +362,7 @@ class EqualWeightBenchmark(QCAlgorithm):
         for sec in self.symbols:
             # get current weights
             current_weight = self.check_current_weight(sec)
-            # self.Debug('{} {}'.format(sec, current_weight))
+            self.Debug('{} {}'.format(sec, current_weight))
 
             # if current weights outside of tolerance send new orders
             tol = self.TOLERANCE * self.BET_SIZE
