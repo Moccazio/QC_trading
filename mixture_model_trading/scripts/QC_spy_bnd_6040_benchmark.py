@@ -341,6 +341,7 @@ class Benchmark6040(QCAlgorithm):
         for sec in self.symbols:
             # get current weights
             current_weight = self.check_current_weight(sec)
+            self.Debug('{} {}'.format(sec, current_weight))
             target_weight = self.TARGET_WEIGHTS[sec]
 
             # if current weights outside of tolerance send new orders
